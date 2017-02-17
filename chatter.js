@@ -74,7 +74,7 @@ var Chatter = function(){
 
 		_this.userlist.on("contentChanged",_this.pollUsers);
 		_this.msglist.on("contentChanged",_this.pollMessages);
-		console.log("Plato Enhancement Suite: Chatter v"+_this.VERSION+" has started!");
+		console.log("Plato Enhancement Suite: Chatter has started!");
 	}
 
 	this.pollUsers = function(){
