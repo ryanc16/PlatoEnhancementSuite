@@ -1,12 +1,11 @@
 var SessionMonitor = function(){
 
 	this.VERSION = "1.0.0";
-	this._this = this;
 	this.poller;
 	this.enableupdate;
 	this.settings = chrome.storage.local;
 	this.enabled;
-
+	var _this = this;
 
 	this.start = function(){
 		_this.checkEnabled();
@@ -39,8 +38,8 @@ var SessionMonitor = function(){
 			if(_this.enabled != items.enabled){
 				_this.enabled = items.enabled;
 				if(items.enabled)
-					console.log("Plato Prevent Session Timeout has started!");
-				else console.log("Plato Prevent Session Timeout is not running!");
+					console.log("Plato Enhancement Suite: SessionMonitor has started!");
+				else console.log("Plato Enhancement Suite: SessionMonitor is not running!");
 			}
 		});
 	}
