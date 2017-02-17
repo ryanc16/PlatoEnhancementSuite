@@ -10,7 +10,7 @@
   "content_scripts": [
     {
       "matches": ["https://learn.pct.edu/*"],
-      "js": ["jquery.min.js","sessiontimeout.min.js","chat.min.js"]
+      "js": ["jquery.min.js","sessionmonitor.min.js","chatter.min.js"]
     }
   ],
   "browser_action": {
