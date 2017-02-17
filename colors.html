@@ -1,0 +1,106 @@
+<html>
+<head>
+	<style>
+		.swatch{
+			height: 20px;
+			margin: 10px 0;
+			padding: 5px;
+			border-radius: 10px;
+			font-weight: bold;
+			font-family: sans-serif;
+		}
+	</style>
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		var colors1 = ["lightskyblue","seagreen","crimson","blueviolet","darkcyan","blue","deeppink","darkgreen","steelblue","lime","orange","magenta","midnightblue","olive","limegreen","orangered","pink","purple","red","salmon","teal","violet","yellowgreen"];
+		var colors2 =["AliceBlue" ,"AntiqueWhite","Aqua","Aquamarine","Azure","Beige","Bisque","Black","BlanchedAlmond","Blue","BlueViolet","Brown","BurlyWood","CadetBlue","Chartreuse","Chocolate","Coral","CornflowerBlue","Cornsilk","Crimson","Cyan","DarkBlue","DarkCyan","DarkGoldenRod","DarkGray","DarkGrey","DarkGreen","DarkKhaki","DarkMagenta","DarkOliveGreen","DarkOrange","DarkOrchid","DarkRed","DarkSalmon","DarkSeaGreen","DarkSlateBlue","DarkSlateGray","DarkSlateGrey","DarkTurquoise","DarkViolet","DeepPink","DeepSkyBlue","DimGray","DimGrey","DodgerBlue","FireBrick","FloralWhite","ForestGreen","Fuchsia","Gainsboro","GhostWhite","Gold","GoldenRod","Gray","Grey","Green","GreenYellow","HoneyDew","HotPink","IndianRed ","Indigo ","Ivory","Khaki","Lavender","LavenderBlush","LawnGreen","LemonChiffon","LightBlue","LightCoral","LightCyan","LightGoldenRodYellow","LightGray","LightGrey","LightGreen","LightPink","LightSalmon","LightSeaGreen","LightSkyBlue","LightSlateGray","LightSlateGrey","LightSteelBlue","LightYellow","Lime","LimeGreen","Linen","Magenta","Maroon","MediumAquaMarine","MediumBlue","MediumOrchid","MediumPurple","MediumSeaGreen","MediumSlateBlue","MediumSpringGreen", "MediumTurquoise","MediumVioletRed","MidnightBlue","MintCream","MistyRose","Moccasin","NavajoWhite","Navy","OldLace","Olive","OliveDrab","Orange","OrangeRed","Orchid","PaleGoldenRod","PaleGreen","PaleTurquoise","PaleVioletRed","PapayaWhip","PeachPuff","Peru","Pink","Plum","PowderBlue","Purple","RebeccaPurple","Red","RosyBrown","RoyalBlue","SaddleBrown","Salmon","SandyBrown","SeaGreen","SeaShell","Sienna","Silver","SkyBlue","SlateBlue","SlateGray","SlateGrey","Snow","SpringGreen","SteelBlue","Tan","Teal","Thistle","Tomato","Turquoise","Violet","Wheat","White","WhiteSmoke","Yellow","YellowGreen"];
+		var colors3 = [
+			"Aqua",
+			"BlueViolet",
+			"Brown",
+			"CadetBlue",
+			"Chocolate",
+			"Coral",
+			"CornflowerBlue",
+			"Crimson",
+			"DarkBlue",
+			"DarkCyan",
+			"DarkGoldenRod",
+			"DarkGreen",
+			"DarkMagenta",
+			"DarkOliveGreen",
+			"DarkOrange",
+			"DarkOrchid",
+			"DarkRed",
+			"DarkSalmon",
+			"DarkSeaGreen",
+			"DarkSlateBlue",
+			"DarkTurquoise",
+			"DarkViolet",
+			"DeepPink",
+			"DeepSkyBlue",
+			"DodgerBlue",
+			"FireBrick",
+			"ForestGreen",
+			"Fuchsia",
+			"Green",
+			"HotPink",
+			"LightCoral",
+			"LightSeaGreen",
+			"LightSkyBlue",
+			"LimeGreen",
+			"Maroon",
+			"MediumAquaMarine",
+			"MediumBlue",
+			"MediumOrchid",
+			"MediumPurple",
+			"MediumSeaGreen",
+			"MediumSlateBlue",
+			"MediumVioletRed",
+			"MidnightBlue",
+			"Navy",
+			"Olive",
+			"OliveDrab",
+			"Orange",
+			"OrangeRed",
+			"Orchid",
+			"PaleVioletRed",
+			"Purple",
+			"RebeccaPurple",
+			"Red",
+			"RosyBrown",
+			"RoyalBlue",
+			"SaddleBrown",
+			"SeaGreen",
+			"SkyBlue",
+			"SlateBlue",
+			"SteelBlue",
+			"Teal",
+			"Tomato",
+			"Turquoise",
+			"Violet",
+			"YellowGreen"
+		];
+		var colors4 = [];
+		while(colors4.length < colors3.length){
+			var color = colors3[parseInt(Math.random()*colors3.length)];
+			if(colors4.indexOf(color) < 0)
+				colors4.push(color);
+		}
+		$("#swatch_count").text(colors4.length + " colors");
+		var str = "";
+		colors4.forEach(function(o,i){
+			$("#swatches").append("<div class='swatch' style='background-color:#EFEFEF;color:"+o+";'>"+o+"</div>");
+			str+='"'+o+'",';
+		});
+		console.log(str);
+	});
+	</script>
+</head>
+<body>
+	<div id="swatch_count"></div>
+	<div id="swatches"></div>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+  "version": "1.1",
+  "name": "Plato Enhancement Suite",
+  "short_name": "PES",
+  "description": "Plato Enhancement Suite provides useful utilites, functionality, and style changes to the existing Plato website.",
+  "permissions": [
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://learn.pct.edu/*"],
+      "js": ["jquery.min.js","sessiontimeout.min.js","chat.min.js"]
+    }
+  ],
+  "browser_action": {
+    "default_icon": "icon16.png",
+    "default_popup": "settings.html"
+  },
+  "icons":{
+    "16":"icon16.png",
+    "48":"icon48.png",
+    "128":"icon128.png"
+  }
+}
