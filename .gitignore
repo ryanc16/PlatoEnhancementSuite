@@ -1,3 +1,5 @@
 *.zip
 *.psd
 demo*.*
+.vscode
+.sass-cache
