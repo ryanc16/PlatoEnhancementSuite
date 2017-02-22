@@ -17,17 +17,25 @@ function SaveSetting(){
 
 chkbox_sessionmonitor.addEventListener('change',SaveSetting);
 chkbox_chatter.addEventListener('change',SaveSetting);
-//onload
+onload
 settings.get("enabled_modules",function(items){
 	chkbox_sessionmonitor.checked = items.enabled_modules.sessionmonitor.enabled;
 	chkbox_chatter.checked = items.enabled_modules.chatter.enabled;
 });
-$("#modules div").on('click',function(e){
+$("#modules div.module-header").on('click',function(e){
 	e.stopPropagation();
-	var settings_box = $(this).find("div.settings");
-	if(settings_box.hasClass('closed'))
-		settings_box.removeClass('closed');
-	else settings_box.addClass('closed');
+	
+	var settings_box = $(this).parent().find("div.settings");
+	if(settings_box.hasClass('open')){
+		settings_box.removeClass('open');
+		$(this).removeClass('open');
+		$(this).find('.img_expand').removeClass('rotate-up');
+	}
+	else{ 
+		settings_box.addClass('open');
+		$(this).addClass('open');
+		$(this).find('.img_expand').addClass('rotate-up');
+	}
 });
 chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 	if(tabs[0].url.indexOf("https://learn.pct.edu") < 0){

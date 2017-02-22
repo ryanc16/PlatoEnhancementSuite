@@ -1,4 +1,11 @@
-$background: #f0e2d9;
+//$background: #edd0b1;
+$background: #ffdaab;
+$unsat-background: desaturate($background,15%);
+$background5:  darken($unsat-background,5%);
+$background10: darken($unsat-background,10%);
+$background15: darken($unsat-background,15%);
+$background20: darken($unsat-background,20%);
+$background-img: 'img/background.jpg';
 
 html{
 	background-color: white;
@@ -7,23 +14,22 @@ html{
 body{
 	font-family: sans-serif;
 	font-size: 16px;
-	padding: 1em;
-	padding-top: 4px;
+	padding: 0;
 	margin: 0;
-	width: 260px;
 	background-color: $background;
+	background: url($background-img) repeat;
 	border:solid 1px black;
 }
 h1 img {
 	height: 48px;
 }
 h1{
-	border-bottom: solid 2px darken($background,10%);
+	border-bottom: solid 2px $background20;
 	font-size: 24px;
 	margin-top: 0;
 }
 h2{
-	border-bottom: solid 2px darken($background,10%);
+	border-bottom: solid 2px $background20;
 	font-size: 20px;
 }
 
@@ -33,50 +39,78 @@ h2{
 .small-caps{
 	font-variant: small-caps;
 }
+#wrapper{
+	padding: 1em;
+	padding-top: 4px;
+	margin: 0;
+	display: inline-block;
+	min-width: 300px;
+}
+dt{
+	font-weight: bold;
+}
+#popup-nav{
+	font-size: 10px;
+}
 #app_version{
 	font-size: 10px;
 }
 
 div.modules{
-	&>div{
-		cursor: pointer;
-		border-bottom: solid 1px darken($background,15%);
-		padding: 0.5em;
-		&:hover{
-			background-color: darken($background,10%);
-		}
-		&>div.is_module_loaded{
-			display: inline-block;
-			width: 16px;
-			height: 16px;
-			border:solid 1px black;
-			border-radius: 10px;
-			&.is_loaded{
-				background-color: limegreen;
+	&>div.module{
+		margin-bottom: 0.5em;
+		&>div.module-header{
+		
+			cursor: pointer;
+			border: solid 1px $background20;
+			background-color: $background5;
+			padding: 0.5em;
+			&:hover{
+				background-color: $background10
 			}
-			&.not_loaded{
-				background-color: firebrick;
+			&.open{
+				background-color: $background15;
+			}
+			&>div.is_module_loaded{
+				display: inline-block;
+				width: 16px;
+				height: 16px;
+				border:solid 1px black;
+				border-radius: 10px;
+				&.is_loaded{
+					background-color: limegreen;
+				}
+				&.not_loaded{
+					background-color: firebrick;
+				}
+			}
+			.img_expand{
+				transition: transform 0.3s;
+				&.rotate-up{
+					transform: rotateZ(-180deg) translateY(-5px);
+					
+				}
+			}
+			&>span{
+				margin-left: 6px;
+				font-size: 18px;
 			}
 		}
-		&>img{
-			width: 24px;
-		}
-		&>span{
-			margin-left: 6px;
-			font-size: 18px;
-		}
+
 		&>div.settings{
-			
+			height: 0px;
+			padding: 0;
+			visibility: none;
+			border: none;
 			overflow: hidden;
-			visibility: visible;
-			&.closed{
-				height: 0px;
-				visibility: none;
-				border: none;
+			&.open{
+				border:dashed 1px $background20;
+				visibility: visible;
+				height: auto;
+				padding: 5px;
+				padding-left: 24px;
+				background-color: $background10;
 			}
-			margin-left: 24px;
 		}
-
-	} 
-
+	}
 }

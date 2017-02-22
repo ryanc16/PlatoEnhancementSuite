@@ -3,24 +3,30 @@
 	<link rel="stylesheet" href="settings.min.css"/>
 </head>
 <body>
-	<span id="app_version"></span>
-	<h1 class="text-center"><img src="img/icons/icon128.png"/></h1>
-	<h2>Modules</h2>
-	<div id="modules" class="modules">
-		<div>
-			<div id="sessionmonitor_indicator" class="is_module_loaded"></div><span>SessionMonitor</span>
-			<div class="settings closed">
-				<input id="chkbox_enable_sessionmonitor" type="checkbox" checked /><label for="chkbox_enable_sessionmonitor">Prevent session timeout</label>
+	<div id="wrapper">
+		<div id="popup-nav"> <span id="app_version">v</span> | <a href="about.html">About</a></div>
+		<h1 class="text-center"><img src="img/icons/icon128.png"/></h1>
+		<h2>Modules</h2>
+		<div id="modules" class="modules">
+			<div class="module">
+				<div class="module-header">
+					<div id="sessionmonitor_indicator" class="is_module_loaded"></div> <img class="img_expand" src="img/more.png"/><span>SessionMonitor</span>
+				</div>
+				<div class="settings">
+					<input id="chkbox_enable_sessionmonitor" type="checkbox" checked /><label for="chkbox_enable_sessionmonitor">Prevent session timeout</label>
+				</div>
 			</div>
-		</div>
-		<div>
-			<div id="chatter_indicator" class="is_module_loaded"></div><span>Chatter</span>
-			<div class="settings closed">
-				<input id="chkbox_enable_chatter" type="checkbox" checked /><label for="chkbox_enable_chatter">Add some styling to chats.</label>
+
+			<div class="module">
+				<div class="module-header">
+					<div id="chatter_indicator" class="is_module_loaded"></div> <img class="img_expand" src="img/more.png"/><span>Chatter</span>
+				</div>
+				<div class="settings">
+					<input id="chkbox_enable_chatter" type="checkbox" checked /><label for="chkbox_enable_chatter">Add some styling to chats.</label>
+				</div>
 			</div>
 		</div>
 	</div>
-	
 	<script type="text/javascript" src="jquery.min.js"></script>
 	<script type="text/javascript" src="popup.min.js"></script>
 </body>

@@ -37,7 +37,7 @@ var SessionMonitor = function() {
 		var timeoutdialog = $('#d2l_sessionExpiryWarning');
 		if(_this.enabled && timeoutdialog.length == 1 && timeoutdialog[0].style.opacity == 1){
 			timeoutdialog[0].click();
-			cout.log("Plato Enhancement Suite: SessionMonitor has kept your session active!");
+			console.log("Plato Enhancement Suite: SessionMonitor has kept your session active! - "+new Date());
 			return true;
 		}
 		return false;

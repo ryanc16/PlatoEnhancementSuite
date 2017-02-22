@@ -5,23 +5,22 @@ html {
 body {
   font-family: sans-serif;
   font-size: 16px;
-  padding: 1em;
-  padding-top: 4px;
+  padding: 0;
   margin: 0;
-  width: 260px;
-  background-color: #f0e2d9;
+  background-color: #ffdaab;
+  background: url("img/background.jpg") repeat;
   border: solid 1px black; }
 
 h1 img {
   height: 48px; }
 
 h1 {
-  border-bottom: solid 2px #e2c6b4;
+  border-bottom: solid 2px #f1ab53;
   font-size: 24px;
   margin-top: 0; }
 
 h2 {
-  border-bottom: solid 2px #e2c6b4;
+  border-bottom: solid 2px #f1ab53;
   font-size: 20px; }
 
 .text-center {
@@ -30,37 +29,62 @@ h2 {
 .small-caps {
   font-variant: small-caps; }
 
+#wrapper {
+  padding: 1em;
+  padding-top: 4px;
+  margin: 0;
+  display: inline-block;
+  min-width: 300px; }
+
+dt {
+  font-weight: bold; }
+
+#popup-nav {
+  font-size: 10px; }
+
 #app_version {
   font-size: 10px; }
 
-div.modules > div {
-  cursor: pointer;
-  border-bottom: solid 1px #dab8a2;
-  padding: 0.5em; }
-  div.modules > div:hover {
-    background-color: #e2c6b4; }
-  div.modules > div > div.is_module_loaded {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    border: solid 1px black;
-    border-radius: 10px; }
-    div.modules > div > div.is_module_loaded.is_loaded {
-      background-color: limegreen; }
-    div.modules > div > div.is_module_loaded.not_loaded {
-      background-color: firebrick; }
-  div.modules > div > img {
-    width: 24px; }
-  div.modules > div > span {
-    margin-left: 6px;
-    font-size: 18px; }
-  div.modules > div > div.settings {
-    overflow: hidden;
-    visibility: visible;
-    margin-left: 24px; }
-    div.modules > div > div.settings.closed {
-      height: 0px;
-      visibility: none;
-      border: none; }
+div.modules > div.module {
+  margin-bottom: 0.5em; }
+  div.modules > div.module > div.module-header {
+    cursor: pointer;
+    border: solid 1px #f1ab53;
+    background-color: #f7ce9a;
+    padding: 0.5em; }
+    div.modules > div.module > div.module-header:hover {
+      background-color: #f5c282; }
+    div.modules > div.module > div.module-header.open {
+      background-color: #f3b76b; }
+    div.modules > div.module > div.module-header > div.is_module_loaded {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: solid 1px black;
+      border-radius: 10px; }
+      div.modules > div.module > div.module-header > div.is_module_loaded.is_loaded {
+        background-color: limegreen; }
+      div.modules > div.module > div.module-header > div.is_module_loaded.not_loaded {
+        background-color: firebrick; }
+    div.modules > div.module > div.module-header .img_expand {
+      transition: transform 0.3s; }
+      div.modules > div.module > div.module-header .img_expand.rotate-up {
+        transform: rotateZ(-180deg) translateY(-5px); }
+    div.modules > div.module > div.module-header > span {
+      margin-left: 6px;
+      font-size: 18px; }
+  div.modules > div.module > div.settings {
+    height: 0px;
+    padding: 0;
+    visibility: none;
+    border: none;
+    overflow: hidden; }
+    div.modules > div.module > div.settings.open {
+      border: dashed 1px #f1ab53;
+      visibility: visible;
+      height: auto;
+      padding: 5px;
+      padding-left: 24px;
+      background-color: #f5c282; }
 
 /*# sourceMappingURL=settings.css.map */
