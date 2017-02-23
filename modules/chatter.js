@@ -1,5 +1,5 @@
 var Chatter = function(){
-	this.VERSION = "1.0.0";
+	this.VERSION = "1.1.0";
 	this.loaded = false;
 	this.settings = chrome.storage.local;
 	this.enabled;
@@ -9,6 +9,32 @@ var Chatter = function(){
 	this.user_count = 0;
 	this.colors = [ "YellowGreen","DarkGoldenRod","Chocolate","LimeGreen","CornflowerBlue","Violet","LightSkyBlue","SaddleBrown","DarkOrange","SeaGreen","MediumVioletRed","DarkTurquoise","Olive","Tomato","DarkOliveGreen","Turquoise","DarkRed","Purple","Maroon","RebeccaPurple","DarkCyan","MediumBlue","HotPink","DeepPink","CadetBlue","PaleVioletRed","DarkOrchid","MediumPurple","Brown","DeepSkyBlue","DodgerBlue","SlateBlue","OliveDrab","OrangeRed","Coral","Crimson","Red","LightCoral","FireBrick","LightSeaGreen","MediumSlateBlue","DarkMagenta","Teal","Orchid","MidnightBlue","Orange","MediumAquaMarine","Green","DarkSalmon","DarkBlue","Navy","SteelBlue","Fuchsia","SkyBlue","ForestGreen","MediumSeaGreen","DarkViolet","RosyBrown","DarkSlateBlue","DarkSeaGreen","RoyalBlue","DarkGreen","MediumOrchid","BlueViolet"];
 	this.color_map = {};
+	this.emojis = [
+		{name:"thumb_up",code:"em-thumbsup"},
+		{name:"thumb_down",code:"em-thumbsdown"},
+		{name:"gesture_raised_hand",code:"em-raised_hand"},
+		{name:"face_angry",code:"em-angry"},
+		{name:"face_confused",code:"em-confused"},
+		{name:"face_confounded",code:"em-confounded"},
+		{name:"face_cry",code:"em-cry"},
+		{name:"face_disappointed",code:"em-disappointed"},
+		{name:"face_expressionless",code:"em-expressionless"},
+		{name:"face_frowning",code:"em-frowning"},
+		{name:"face_joy",code:"em-joy"},
+		{name:"face_neutral",code:"em-neutral_face"},
+		{name:"face_confused",code:"em-confused"},
+		{name:"face_gasp",code:"em-open_mouth"},
+		{name:"face_smile",code:"em-smile"},
+		{name:"face_smirk",code:"em-smirk"},
+		{name:"face_sweat",code:"em-sweat_smile"},
+		{name:"face_tongue",code:"em-stuck_out_tongue"},
+		{name:"face_tongue_eyes",code:"em-stuck_out_tongue_closed_eyes"},
+		{name:"face_tongue_wink",code:"em-stuck_out_tongue_winking_eye"},
+		{name:"face_worried",code:"em-worried"},
+		{name:"item_date",code:"em-date"},
+		{name:"item_chicken",code:"em-chicken"},
+	];
+	this.emoji_css = "<style>i.em{font-size:14px;}div#previewbox{background-color:white;border-radius:5px;border:solid 1px #c0c0c0;min-height:4em;max-height:8em;overflow-y:auto;width:80%;padding:2px 6px;white-space:pre-wrap;line-height:1.25;}div#emoji_palette{border:solid 1px black;background-color:#ECECEC;display:none;}div#emoji_palette.open{display:block;}div#emoji_palette button{margin:5px;}</style>";
 	this.iframe;
 	this.userlist;
 	this.msglist;
@@ -50,14 +76,67 @@ var Chatter = function(){
 			if(_this.userlist.length == 0 && _this.msglist.length == 0)
 				return;
 		}
-		_this.btnsend.wrap("<div style='display:inline-block;'></div>");
+		$("head").append("<link href='https://afeld.github.io/emoji-css/emoji.css' rel='stylesheet'>");
+		$("head").append(_this.emoji_css);
+		var snd_wrap = $("<div id='snd_wrap' style='display:inline-block;'></div>");
+		_this.btnsend.wrap(snd_wrap);
+		snd_wrap = $("#snd_wrap");
 		_this.chkEnterToSend = $("<input type='checkbox' name='enter_to_send' id='enter_to_send' />").insertAfter(_this.btnsend);
 		$("<label for='enter_to_send'>Enter to Send</label>").insertAfter(_this.chkEnterToSend);
 		$("</br>").insertAfter(_this.btnsend);
+		
+		
+		var previewbox = $("<div id='previewbox'><div>");
+		previewbox.insertAfter(snd_wrap);
+		_this.btnsend.on('click',function(){
+			previewbox.html("");
+		});
+		$("<div>Preview:</div>").insertBefore(previewbox);
 
+		var btn_emoji = $("<button><i class='em em-grinning'></i></button>");
+		var emoji_palette = $("<div id='emoji_palette'></div>");
+		$(btn_emoji).insertAfter(previewbox);
+		btn_emoji.on('click',function(){
+			if(emoji_palette.hasClass('open'))
+				emoji_palette.removeClass('open');
+			else emoji_palette.addClass('open');
+		});
+		$(emoji_palette).insertAfter(btn_emoji);
+		var emoji_btn_str = "";
+		var br = "<br>";
+		_this.emojis.forEach(function(o,i){
+			emoji_btn_str += "<button title='"+o.name+"'><i class='em "+o.code+"'></i></button>";
+			if((i+1)%13 == 0) emoji_btn_str+=br;
+		});
+		
+		$(emoji_palette).append(emoji_btn_str);
+		$(emoji_palette).find("button").each(function(i,o){
+			$(o).on('click',function(){
+				var currentText = _this.msgbox.val();
+				var selectionIndex = _this.msgbox[0].selectionStart;
+				var pre = currentText.substring(0,selectionIndex);
+				var post = currentText.substring(selectionIndex);
+				var emoji_str = ":"+_this.emojis[i].name+":";
+				_this.msgbox.val(pre+emoji_str+post);
+				_this.msgbox.trigger('keyup');
+				_this.msgbox.focus();
+				_this.msgbox[0].selectionStart = selectionIndex+emoji_str.length;
+				_this.msgbox[0].selectionEnd = selectionIndex+emoji_str.length;
+			});
+		});
+		
 		_this.msgbox.on('keyup',function(e){
-			if(e.which == 13 && _this.chkEnterToSend.prop('checked')==true)
+			if(e.which == 13 && _this.chkEnterToSend.prop('checked')==true){
 				_this.btnsend[0].click();
+			}
+			else {
+				selectionIndex = _this.msgbox[0].selectionStart;
+				var innerhtml = _this.msgbox.val();
+				_this.emojis.forEach(function(o,i){
+					innerhtml = innerhtml.replace(new RegExp(":"+o.name+":",'g'),"<i class='em "+o.code+"'></i>");
+				});
+				previewbox.html(innerhtml);
+			}
 		});
 
 		_this.userlist.find("li").each(function(i,o){
@@ -73,7 +152,7 @@ var Chatter = function(){
 		});
 
 		_this.msglist.find("div").each(function(i,o){
-			$(o).prop("style","white-space:normal;background-color:#EFEFEF;margin:5px 0;padding:5px;border-radius:10px;");
+			$(o).prop("style","white-space:pre;background-color:#EFEFEF;margin:5px 0;padding:5px;border-radius:10px;");
 		});
 
 		_this.msglist.find("h3 span").each(function(i,o){
@@ -125,7 +204,12 @@ var Chatter = function(){
 
 	this.pollMessages = function(){
 		_this.msglist.find("div").each(function(i,o){
-			$(o).prop("style","white-space:normal;background-color:#ECECEC;margin:5px 0;padding:5px;border-radius:10px;");
+			$(o).prop("style","white-space:pre;background-color:#ECECEC;margin:5px 0;padding:5px;border-radius:10px;");
+			var msg = $(o).html();
+			_this.emojis.forEach(function(o,i){
+				msg = msg.replace(new RegExp(":"+o.name+":",'g'),"<i class='em "+o.code+"'></i>");
+			});
+			$(o).html(msg);
 		});
 		_this.msglist.find("h3 span").each(function(i,o){
 			var username = $(o).text().replace(":","");
