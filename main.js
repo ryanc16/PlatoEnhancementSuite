@@ -4,7 +4,7 @@ $(function(){
 
 	var PES = function(){
 		var _this = this;
-		this.VERSION = "1.2.3";
+		this.VERSION = "1.3.0";
 		this.sessionmonitor;
 		this.chatter;
 
