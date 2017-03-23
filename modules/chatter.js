@@ -1,5 +1,5 @@
 var Chatter = function(){
-	this.VERSION = "1.2.0";
+	this.VERSION = "1.2.1";
 	this.loaded = false;
 	this.settings = chrome.storage.local;
 	this.enabled;
@@ -61,11 +61,10 @@ var Chatter = function(){
 	}
 
 	this.setup = function(){
-
-		if(!_this.enabled) return;
 		
+		if(!_this.enabled) return;
 		_this.iframe = $("iframe").contents();
-		$("iframe").prop('style','height:720px');
+		
 		_this.document_root = _this.iframe.find("html");
 		_this.userlist	= _this.iframe.find("#userlst_id");
 		_this.msglist	= _this.iframe.find("#msglst_id");
@@ -80,6 +79,7 @@ var Chatter = function(){
 			if(_this.userlist.length == 0 && _this.msglist.length == 0)
 				return;
 		}
+		$("iframe").css('min-height','720px');
 		_this.document_root.find("head").append("<link href='https://afeld.github.io/emoji-css/emoji.css' rel='stylesheet'>");
 		_this.document_root.find("head").append(_this.emoji_css);
 		var snd_wrap = $("<div id='snd_wrap' style='display:inline-block;'></div>");
