@@ -1,5 +1,5 @@
 var Chatter = function(){
-	this.VERSION = "1.2.1";
+	this.VERSION = "1.2.2";
 	this.loaded = false;
 	this.settings = chrome.storage.local;
 	this.enabled;
@@ -44,7 +44,8 @@ var Chatter = function(){
 	this.chkEnterToSend;
 	var _this = this;
 	var isdev = false;
-
+	// var urlRegEx = new RegExp(/((http(s)?):\/\/)?([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?/);
+	var urlRegEx = new RegExp(/(((http(?:s)?):(?:\/\/)?(?:[\-;:&=\+\$,\w]+@)?[\w\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[\w\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w\-:?=&;~%#]*))?)/);
 	this.start = function(){
 		_this.checkEnabled();
 		setTimeout(function(){
@@ -170,8 +171,14 @@ var Chatter = function(){
 		var innerhtml = _this.msgbox.val();
 		_this.emojis.forEach(function(o,i){
 			innerhtml = innerhtml.replace(new RegExp("("+o.value+")(?:(?!<\/))(\s)?",'gu'),"<i class='em "+o.css+"'>"+o.value+"</i>");
+			
 		});
-		
+		var capturegroup = innerhtml.match(urlRegEx);
+		if(capturegroup==null) capturegroup = [];
+		if(capturegroup.length > 0){
+			var replacement = (capturegroup[3] == undefined)?"<a href='http://$&' target='_blank'>$&</a>":"<a href='$&' target='_blank'>$&</a>";
+			innerhtml = innerhtml.replace(urlRegEx,replacement);
+		}
 		_this.previewbox.html(innerhtml);
 	}
 
@@ -214,6 +221,12 @@ var Chatter = function(){
 			_this.emojis.forEach(function(o,i){
 				msg = msg.replace(new RegExp("("+o.value+")(?:(?!<\/))(\s)?",'gu'),"<i class='em "+o.css+"'>"+o.value+"</i>");
 			});
+			var capturegroup = msg.match(urlRegEx);
+			if(capturegroup==null) capturegroup = [];
+			if(capturegroup.length > 0){
+				var replacement = (capturegroup[3] == undefined)?"<a href='http://$&' target='_blank'>$&</a>":"<a href='$&' target='_blank'>$&</a>";
+				msg = msg.replace(urlRegEx,replacement);
+			}
 			$(o).find("span > span").html(msg);
 		});
 		_this.msglist.find("div span > h3 > span").each(function(i,o){

@@ -1,0 +1,1 @@
+browserify main.min.js -o main.br.min.js
